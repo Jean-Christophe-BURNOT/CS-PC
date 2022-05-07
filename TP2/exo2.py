@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Mon Apr 25 16:44:46 2022
+Created on Sat May  7 16:25:09 2022
 
-@author: raphael.guzelian
+@author: terramotu
 """
-
 import os,sys
 
 for i in range(3):

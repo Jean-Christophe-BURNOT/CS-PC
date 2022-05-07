@@ -1,16 +1,18 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Mon Apr 25 16:27:34 2022
+Spyder Editor
 
-@author: raphael.guzelian
+This is a temporary script file.
+Ce programme est l'exercice 1 du TP2'
 """
-
-import os,sys
+import os, sys
 
 pid=os.fork()
+
 if pid==0:
     print("Je suis le fils")
     os.execlp("python3","python3","test.py")
+    
 else:
-    print("Je suis le père")
+    print("je suis le père")
+
