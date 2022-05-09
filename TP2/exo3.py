@@ -11,21 +11,61 @@ import os, sys
 if len(sys.argv) <2:
     print("Préciser les programmes à éxécuter en ligne de commande")
     sys.exit(1)
-
-while type!=1 and type!=2:
-    type=int(
+typ=0
+while typ!=1 and typ!=2:
+    typ=int(
         input("Entrez le type d'exécution:1 pour serie 2 pour parrallèle:\n"))
-
 commandes = sys.argv[1:]
-if type==1:
-    for cmd in commandes:
+
+
+
+#path=[]
+
+
+
+"""
+Ce processus permet de connaitre la localisation des programmes
+"""
+"""
+#Permet de trouver les localisations des commandes
+for cmd in commandes:
+    pid = os.fork()
+    if pid == 0:   
         try:
-            os.execlp(cmd, cmd)
+            os.execlp("/usr/bin/which", "which", cmd)
         except:
-            print("echec de execlp")
-            
+            print("echec de la recherche de la commande")
+            sys.exit(2)
+        os.wait()
+        
+    p,s = os.wait()
+
+
+p,s = os.wait()
+if os.WIFEXITED(s)==True: #Si le processus s'est terminé sans erreurs
+    print("Le chemin de la commande à été trouvé:", p)
     
-elif type==2:
+    if os.WEXITSTATUS(s)==3:
+        path.append(cmd)
+
+"""
+
+
+
+
+#exécution en série
+if typ==1:
+    for cmd in commandes:
+        pid = os.fork()
+        if pid == 0:   
+            try:
+                os.execlp(cmd, cmd)
+            except:
+                print("echec de execlp")
+            os.wait()
+
+#exécution en parrallèle
+elif typ==2:
     for cmd in commandes:
         pid=os.fork()
         if pid==0:
@@ -33,7 +73,7 @@ elif type==2:
                 os.execlp(cmd, cmd)
             except:
                 print("echec de execlp")
-                sys.exit(2)
+                sys.exit(3)
 
 """
 portion de code qui pourraiit permettre de
