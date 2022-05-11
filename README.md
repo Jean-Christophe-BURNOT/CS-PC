@@ -8,4 +8,6 @@ Pour qu'il le soit il faudrait faire plusieurs fonctions
 ### Exercice 4 du TP2
 Est-ce que un fork réalisé dans une structure itérative remonte dans cette dernière (ce problème rend difficile l'exécution du code dans ma tête)
 ### Exercice 5 du TP2
-Finir le programme
+Programme à faire vérifier
+### Exercice 6 du TP2
+Programme à faire
