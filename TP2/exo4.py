@@ -12,6 +12,9 @@ question2: Le programme est deterministe parce que les outputs seront toujours
 le même, en effet les processus s'attendent l'un l'autre pour s'exécuter
 question3: Si on enlève le wait ce n'est plus un programme déterministe puisque
 en fait on ne sait plus à quel moment est-ce que les outputs vont se faire...
+question4: Ce programme est déterministe son output sera:
+    
+question5:
 """
 import os, sys
 
