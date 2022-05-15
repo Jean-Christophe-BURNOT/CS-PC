@@ -1,5 +1,8 @@
 # CS-PC
 ***
+##Remarque:
+Pour exécuter un code avec des arguments sur Spyder il faut utiliser la commande run dans le shell
+spyder
 ## TP2:
 ### Exercice 3 du TP2
 Est devenu l'embryon d'un shell complet.
@@ -10,4 +13,5 @@ Est-ce que un fork réalisé dans une structure itérative remonte dans cette de
 ### Exercice 5 du TP2
 Programme à faire vérifier
 ### Exercice 6 du TP2
-Programme à faire
+Difficultés pour la modification avec des os.wait
+### difficultés de réalisation
