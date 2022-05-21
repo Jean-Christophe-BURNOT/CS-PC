@@ -15,3 +15,5 @@ Programme à faire vérifier
 ### Exercice 6 du TP2
 Difficultés pour la modification avec des os.wait
 ### difficultés de réalisation
+
+Continuation du projet
