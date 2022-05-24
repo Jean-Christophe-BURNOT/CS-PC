@@ -6,25 +6,27 @@ Created on Tue May 24 09:48:29 2022
 @author: terramotu
 exercice 3 du TP sur les signaux
 """
-import signal, time
+import signal,time, sys
 
-#Fonction executée lors de la reception du signal
-def fonc(s, frame):
-    print("\n le programme a recu un signal !")
-    fin = True
-    return fin
-
-#gère le comportement du signal
-signal.signal(2, fonc)
-
-#boucle infinie
 global fin
-fin = False
-while not fin:
-    print("Ceci est une boucle infinie")
-    time.sleep(1)
-    if fin:
-        print("salut mon pote !")
-        break
+fin=False
+
+def arreterProgramme(signal,frame) :
+    global fin 
+    fin=True
+
+signal.signal(signal.SIGINT, arreterProgramme)
+
+
+
+def boucle():
+    global fin 
+
+    while not(fin) :
+        time.sleep(2)
+        print("je boucle")
+
+boucle()
+sys.exit(0)
     
 
