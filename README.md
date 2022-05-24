@@ -15,5 +15,13 @@ Programme à faire vérifier
 ### Exercice 6 du TP2
 Difficultés pour la modification avec des os.wait
 ### difficultés de réalisation
+## TP3
+### Exercice 2
+Demander la correction
+### Exercice supplémentaire
+à faire vérifier
+## TP4
+### Exercice 2
+Impossible de terminer le processus sans couper la console
 
-Continuation du projet
+

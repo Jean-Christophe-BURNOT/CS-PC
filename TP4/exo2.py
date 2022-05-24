@@ -13,7 +13,8 @@ def fonc(s, frame):
     sys.exit(0)
 
 #gère le comportement du signal
-signal.signal(2, fonc)
+signal.signal(signal.SIGINT , signal.SIG_IGN)
+
 #boucle infinie
 while True:
     print("Ceci est une boucle infinie interruptible")
