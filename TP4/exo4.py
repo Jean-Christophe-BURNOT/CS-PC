@@ -25,5 +25,6 @@ else:
     for i in range(N):
         time.sleep(1)
         print("Et moi je suis le père qui boucle N fois")
+    #Envoit le signal "sigkill" au PID
     os.kill(pid, SIGKILL)
 

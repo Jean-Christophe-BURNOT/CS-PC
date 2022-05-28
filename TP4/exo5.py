@@ -19,6 +19,7 @@ if pid==0:
     while True:
         time.sleep(1)
         print("Je suis le fils qui est en train de boucler")
+        #permet de dérouter le fils
         signal.signal(signal.SIGINT, stop)
     #Le sys exit est inutile la sortie se fait par un signal mais je trouve ça plus propre...
     sys.exit(0)
@@ -28,3 +29,5 @@ else:
     for i in range(N):
         time.sleep(1)
         print("Et moi je suis le père qui boucle N fois")
+    os.kill(pid, signal.SIGINT)
+    
