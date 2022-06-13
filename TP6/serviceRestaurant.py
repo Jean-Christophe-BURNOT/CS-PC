@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon June 7 15:40:28 2021
-@author: Axel François
-github : https://github.com/AxFrancois/ProgrammationConcurrente
-
-To do : affichage de la commande en cours de servie
+@author: terramotu
+Code qui simule le service d'un restaurant
 """
 
 # %%----------------------Import----------------------------------------------#
@@ -32,36 +29,27 @@ def fServeur(pNumero, ptampon, petatServeur, pService):
     while True:
         semTampon.acquire()
         mutex.acquire()
-
         numeroClient = ptampon[1][0]
         lettreCommande = ptampon[0][0]
-
         if numeroClient != 0:   #s'il y a bien une commande, on la récupère et donc on la retire de la liste
             ptampon[1] = fDecaleurListe(ptampon[1])
             ptampon[0] = fDecaleurListe(ptampon[0])
-            
         mutex.release()
         semTampon.release()
-        
         if numeroClient == 0 :
             time.sleep(1)
         else:
-            
             #print(f"le serveur {pNumero} s'occupe de la commande {(numeroClient,lettreCommande)}")
             semServeur.acquire()
             petatServeur[0][pNumero] = lettreCommande
             petatServeur[1][pNumero] = numeroClient
             semServeur.release()
-
             time.sleep(random.randint(3,6))
-
             semServeur.acquire()
             petatServeur[0][pNumero] = 0
             petatServeur[1][pNumero] = 0
             pService[pNumero] = 1 
             semServeur.release()
-
-
             #print(f"le serveur {pNumero} a fini avec la commande {(numeroClient,lettreCommande)}")
 
 def clients(ptampon, pTamponSize):
@@ -74,16 +62,12 @@ def clients(ptampon, pTamponSize):
     while True:
         semTampon.acquire()
         index = fFindLastNotNullIndex(ptampon[1])
-
         if index <= pTamponSize-1: #Si le carnet de commande n'est pas plein
             lettreCommande = random.randint(1,26)
             numeroClient = random.randint(1,10)
-
             ptampon[0][index] = lettreCommande
             ptampon[1][index] = numeroClient
-
         semTampon.release()
-
         time.sleep(1)
 
 def major_dHomme(pNombreProcServeur, ptampon,pServeur, pService):
@@ -99,37 +83,30 @@ def major_dHomme(pNombreProcServeur, ptampon,pServeur, pService):
         semTampon.acquire()
         semServeur.acquire()
         mutex.acquire()
-
         ptamponLettre = fIntListToAlphabet(fArrayToList(ptampon[0]))
         ptamponNumero = fArrayToList(ptampon[1])
         pServeurLettre = fIntListToAlphabet(fArrayToList(pServeur[0]))
         pServeurNumero = fArrayToList(pServeur[1])
         pEnService = fArrayToList(pService)
         pService = fResetList(pService)
-
         mutex.release()
         semServeur.release()
         semTampon.release()
-
         print("\x1B[2J\x1B[;H",end='')
-
         for i in range(pNombreProcServeur):
             if pServeurNumero[i] == 0:
                 print(f"Le serveur {i+1} traite la commande")
             else:
                 print(f"Le serveur {i+1} traite la commande {(pServeurNumero[i],pServeurLettre[i])}")
-        
         tailleListeCommande = fFindLastNotNullIndex(ptamponNumero)
         ListeCommande = []
         for i in range(tailleListeCommande):
             ListeCommande.append((ptamponNumero[i],ptamponLettre[i]))
         print(f"Les commandes clients en attentes : {ListeCommande}")
         print(f"Nombre de commandes en attente : {tailleListeCommande}")
-
         for i,element in enumerate(pEnService):
             if element == 1:
                 print(f"Le serveur {i+1} à fini sa préparation et l'a servi au client")
-
         time.sleep(1)
 
 def fFindLastNotNullIndex(pListe):
@@ -229,7 +206,6 @@ tamponNumero = mp.Array('i',TamponSize)
 ServeurLettre =  mp.Array('i',NombreProcServeur)
 ServeurNumero =  mp.Array('i',NombreProcServeur)
 EnService = mp.Array('i',NombreProcServeur)
-
 tampon = [tamponLettre, tamponNumero]
 etatServeur = [ServeurLettre, ServeurNumero]
 
@@ -239,12 +215,10 @@ PClient = mp.Process(target=clients, args= (tampon, TamponSize))
 PMajorHomme = mp.Process(target=major_dHomme, args= (NombreProcServeur, tampon, etatServeur, EnService))
 for i in range(NombreProcServeur):
     EquipeServeur[i] = mp.Process(target=fServeur, args= (i, tampon, etatServeur, EnService))
-  
 PClient.start()
 PMajorHomme.start()
 for i in range(NombreProcServeur):
     EquipeServeur[i].start()
-
 PClient.join()
 PMajorHomme.join()
 for i in range(NombreProcServeur):
